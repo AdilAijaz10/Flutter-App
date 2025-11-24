@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Core/Theme/theme.dart';
+import 'package:flutter_app/Core/di/service_locator.dart';
 // import 'package:flutter_app/features/auth/application/pages/signup_page.dart';
 import 'package:flutter_app/features/auth/application/pages/login_page.dart';
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initServiceLocator();
   runApp(const MyApp());
 }
 

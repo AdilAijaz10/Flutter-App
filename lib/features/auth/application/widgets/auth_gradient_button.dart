@@ -3,7 +3,14 @@ import 'package:flutter_app/Core/Theme/app_pallet.dart';
 
 class AuthGradientButton extends StatelessWidget {
   final String buttonText;
-  const AuthGradientButton({super.key, required this.buttonText});
+  final VoidCallback? onPressed;
+  final bool isLoading;
+  const AuthGradientButton({
+    super.key,
+    required this.buttonText,
+    this.onPressed,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +27,28 @@ class AuthGradientButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
       ),
       child: ElevatedButton(
-        onPressed: (){}, 
+        onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           fixedSize:const Size(395, 55),
           backgroundColor: AppPallete.transparentColor,
           shadowColor: AppPallete.transparentColor,
         ),
-        child: Text(
-          buttonText,
-          style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w600,  
-            ),
-        ),
+        child: isLoading
+            ? const SizedBox(
+                height: 26,
+                width: 26,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            : Text(
+                buttonText,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
         ),
     );
   }
